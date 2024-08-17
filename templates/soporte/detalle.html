@@ -1,0 +1,73 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block titulo %}Soporte {{object.id}}{% endblock titulo %}
+{% block contenido %}
+
+<section class="seccion_detalle">
+    <div class="completo_seccion_detalle">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="imagen_detalle">
+                        {% if object.imagen %}
+                            <img src="/media/{{ object.imagen }}" class="d-block w-100" alt="...">
+                        {% else %}
+                            <img src="{% static "img/sinfoto.png" %}" class="d-block w-100" alt="...">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 info_detalle">
+                    <div class="info_detalle_dentro">
+                        <div class="titulo_detalle">
+                            <h2>{{ object.titulo }}</h2>
+                        </div>
+                        <div class="otro_atributo">
+                            <ul>
+                                {% for servicio in object.servicios.all %}
+                                    <li><p>{{ servicio.titulo }}</p></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="descripcion_detalle">
+                            <p>{{ object.descripcion }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="completo_crear_solicitud">
+                        <div class="titulo_formulario">
+                            <h3>Solicitar el Soporte</h3>
+                        </div>
+                        <div class="formulario_solicitud">
+                            <form action="{% url "Crear_Solicitud_Soporte" %}" method="post">
+                                {% csrf_token %}
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <label for="">{{ form.correo.label }}</label>
+                                            {{ form.correo }}
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <label for="">{{ form.telefono.label }}</label>
+                                            {{ form.telefono }}
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="">{{ form.descripcion.label }}</label>
+                                            {{ form.descripcion }}
+                                        </div>
+                                        <input type="hidden" value="{{object.id}}" name="id_servicio_hidden">
+                                    </div>
+                                </div>
+                                <div class="submit_login">
+                                    <button type="submit">Solicitar <i class="fas fa-clipboard"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>                                       
+
+{% endblock contenido %}

@@ -1,0 +1,85 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block titulo %}Listado Categorías{% endblock titulo %}
+{% block contenido %}
+    <section class="listado">
+        <div class="completo_listado">
+            <div class="container">
+                {% if request.user.rol == 'Administrador' %}
+                    <div class="crear_listado">
+                        <button type="button" onclick="CrearCategoria('{% url "Crear_Categoria" %}')">Crear <i class="fas fa-plus"></i></button>
+                        <hr>
+                    </div>
+                {% elif request.user.rol == 'Especialista' %}
+                    <div class="crear_listado">
+                        <button type="button" onclick="CrearCategoria('{% url "Crear_Categoria" %}')">Crear <i class="fas fa-plus"></i></button>
+                        <hr>
+                    </div>
+                {% endif %}
+                <div class="row justify-content-center">
+                    {% if object_list %}
+                        {% for object in object_list %}
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="categoria">
+                                    <a href="{% url "Detalle_Categoria" object.id %}" class="imagen_categoria">
+                                        {% if object.imagen %}
+                                            <img src="/media/{{ object.imagen }}" class="d-block w-100" alt="...">
+                                        {% else %}
+                                            <img src="{% static "img/sinfoto.png" %}" class="d-block w-100" alt="...">
+                                        {% endif %}
+                                    </a>
+                                    <div class="titulo_categoria">
+                                        <h3>{{ object.titulo }}</h3>
+                                    </div>
+                                    {% if request.user.rol == 'Administrador' %}
+                                        <div class="funciones_crud">
+                                            <a href="{% url "Detalle_Categoria" object.id %}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                            <button type="button" class="btn btn-warning" onclick="EditarCategoria('{% url "Editar_Categoria" object.id %}')"><i class="fas fa-pencil"></i></button>
+                                            <button type="button" class="btn btn-danger" onclick="EliminarCategoria('{% url "Eliminar_Categoria" object.id %}')"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    {% elif request.user.rol == 'Especialista' %}
+                                        <div class="funciones_crud">
+                                            <a href="{% url "Detalle_Categoria" object.id %}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                            <button type="button" class="btn btn-warning" onclick="EditarCategoria('{% url "Editar_Categoria" object.id %}')"><i class="fas fa-pencil"></i></button>
+                                            <button type="button" class="btn btn-danger" onclick="EliminarCategoria('{% url "Eliminar_Categoria" object.id %}')"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    <h2>No presenta ninguna Categoria en la Base de Datos</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="crear_categoria" role="dialog">
+    
+        </div>
+        <div class="modal fade" id="editar_categoria" role="dialog">
+    
+        </div>
+        <div class="modal fade" id="eliminar_categoria" role="dialog">
+    
+        </div>
+    </section>
+{% endblock %}
+{% block javascript %}
+    <script type="application/javascript">
+        function CrearCategoria(url){
+            $('#crear_categoria').load(url, function(){
+                $('#crear_categoria').modal('show');
+            });
+        }
+        function EditarCategoria(url){
+            $('#editar_categoria').load(url, function(){
+                $('#editar_categoria').modal('show');
+            });
+        }
+        function EliminarCategoria(url){
+            $('#eliminar_categoria').load(url, function(){
+                $('#eliminar_categoria').modal('show');
+            });
+        }
+    </script>
+{% endblock javascript %}

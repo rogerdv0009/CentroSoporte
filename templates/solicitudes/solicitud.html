@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block titulo %}Solicitudes{% endblock titulo %}
+{% block contenido %}
+
+    <section class="section_paquete">
+        <div class="completo_seccion_reservas">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="completo_reserva">
+                            <div class="titulo_reserva">
+                                <a href="{% url 'Listado_Solicitud_Servicio' %}">Solicitudes de Servicios</a>
+                            </div>
+                            <img src="{% static 'img/solicitud_servicio.jpg' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="completo_reserva">
+                            <div class="titulo_reserva">
+                                <a href="{% url 'Listado_Solicitud_Soporte' %}">Solicitudes de Soportes</a>
+                            </div>
+                            <img src="{% static 'img/solicitud_soporte.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock contenido %}
+    

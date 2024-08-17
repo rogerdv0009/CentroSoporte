@@ -1,0 +1,110 @@
+{% load static %}
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Centro Soporte{% endblock titulo %}</title>
+    <link rel="shortcut icon" href="{% static 'img/support-logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'library/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'library/bootstrap/css/bootstrap.min.css' %}">
+    {% block estilos %}{% endblock estilos %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <nav class="navegador">
+            <a class="logo" href="{% url "Principal" %}">
+                <img src="{% static "img/support-logo.png" %}" alt="">
+            </a>
+            <input type="checkbox" name="check" id="check">
+            <label for="check"><i class="fas fa-bars"></i></label>
+            <ul class="listado_navegador">
+                <li><a href="{% url 'Listado_Noticia' %}">Noticias <i class="fas fa-home icono"></i></a></li>
+                <li><a href="{% url "Listado_Categoria" %}">Categorías <i class="fas fa-home icono"></i></a></li>
+                <li><a href="{% url "Listado_Servicio" %}">Servicios <i class="fas fa-tags icono"></i></a></li>
+                <li><a href="{% url "Listado_Producto" %}">Productos <i class="fas fa-hammer icono"></i></a></li>
+                <li><a href="{% url "Listado_Soporte" %}">Soportes <i class="fas fa-shopping-cart icono"></i></a></li>
+                {% if request.user.rol == 'Administrador' %}
+                <li><a href="{% url "Solicitudes" %}">Solicitudes <i class="fas fa-shopping-cart icono"></i></a></li>
+                <li><a href="{% url "Listado_Usuario" %}">Usuarios <i class="fas fa-user icono"></i></a></li>
+                {% elif request.user.rol == 'Especialista' %}
+                <li><a href="{% url "Solicitudes" %}">Solicitudes <i class="fas fa-shopping-cart icono"></i></a></li>
+                {% endif %}
+                {% if request.user.username %}
+                <li><a title="Desloguearse" class="fas fa-share-square" href="{% url "Logout" %}"></a></li>
+                {% else %}
+                <li><a title="Autenticarse" class="fas fa-sign-in" href="{% url "Login" %}"></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    {% block contenido %}
+
+    {% endblock contenido %}
+    <footer class="footer">
+        <div class="completo_footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="imagen_logo">
+                            <img src="{% static "img/support-logo.png" %}" alt="">
+                        </div>
+                        <div class="descripcion_logo">
+                            <p>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi consequuntur sunt
+                                accusantium?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="titulo_links_footer">
+                            <h3>Enlaces de Interes</h3>
+                        </div>
+                        <ul class="links_footer">
+                            <li><a href="#">link relacionado</a></li>
+                            <li><a href="#">link relacionado</a></li>
+                            <li><a href="#">link relacionado</a></li>
+                            <li><a href="#">link relacionado</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="titulo_links_footer">
+                            <h3>Contáctenos</h3>
+                        </div>
+                        <div class="descripcion_logo">
+                            <p>correo@uci.cu</p>
+                            <p>+53 54318026</p>
+                        </div>
+                        <div class="redes_sociales">
+                            <a href="#" class="fab fa-twitter twitter"></a>
+                            <a href="#" class="fab fa-facebook facebook"></a>
+                            <a href="#" class="fab fa-instagram instagram"></a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="imagen_logo">
+                            <img src="" alt="">
+                        </div>
+                        <div class="descripcion_logo">
+                            <p>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi consequuntur sunt
+                                accusantium?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="derechos_reservados">
+                <p>2024 Soporte. Todos los derechos reservados. <a href="#">UCI</a></p>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'library/jquery/cdnjs/jquery.min.js' %}"></script>
+    <script src="{% static 'library/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block javascript %}{% endblock javascript %}
+</body>
+</html>

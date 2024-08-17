@@ -1,0 +1,95 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block titulo %}Listado Noticias{% endblock titulo %}
+{% block contenido %}
+    <section class="listado">
+        <div class="completo_listado">
+            <div class="container">
+                {% if request.user.rol == 'Administrador' %}
+                    <div class="crear_listado">
+                        <button type="button" onclick="CrearNoticia('{% url "Crear_Noticia" %}')">Crear <i class="fas fa-plus"></i></button>
+                        <hr>
+                    </div>
+                {% elif request.user.rol == 'Especialista' %}
+                    <div class="crear_listado">
+                        <button type="button" onclick="CrearNoticia('{% url "Crear_Noticia" %}')">Crear <i class="fas fa-plus"></i></button>
+                        <hr>
+                    </div>
+                {% endif %}
+                <div class="row justify-content-center">
+                    {% if object_list %}
+                        {% for object in object_list %}
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="noticia">
+                                    <div class="imagen_noticia">
+                                        {% if object.imagen %}
+                                            <img src="/media/{{ object.imagen }}" class="d-block w-100" alt="...">
+                                        {% else %}
+                                            <img src="{% static "img/sinfoto.png" %}" class="d-block w-100" alt="...">
+                                        {% endif %}
+                                    </div>
+                                    <div class="texto_noticia">
+                                        <div class="fecha">
+                                            <div class="fecha_medio">
+                                                <p>{{ object.fecha }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="titulo_noticia">
+                                            <a href="{% url "Detalle_Noticia" object.id %}"><h3>{{ object.titulo }}</h3></a>
+                                        </div>
+                                        <div class="resumen_noticia">
+                                            <p>{{ object.resumen }}</p>
+                                        </div>
+                                    </div>
+                                    {% if request.user.rol == 'Administrador' %}
+                                        <div class="funciones_crud">
+                                            <a href="{% url "Detalle_Noticia" object.id %}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                            <button type="button" class="btn btn-warning" onclick="EditarNoticia('{% url "Editar_Noticia" object.id %}')"><i class="fas fa-pencil"></i></button>
+                                            <button type="button" class="btn btn-danger" onclick="EliminarNoticia('{% url "Eliminar_Noticia" object.id %}')"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    {% elif request.user.rol == 'Especialista' %}
+                                        <div class="funciones_crud">
+                                            <a href="{% url "Detalle_Noticia" object.id %}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                            <button type="button" class="btn btn-warning" onclick="EditarNoticia('{% url "Editar_Noticia" object.id %}')"><i class="fas fa-pencil"></i></button>
+                                            <button type="button" class="btn btn-danger" onclick="EliminarNoticia('{% url "Eliminar_Noticia" object.id %}')"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    <h2>No presenta ninguna Noticia en la Base de Datos</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="crear_noticia" role="dialog">
+    
+        </div>
+        <div class="modal fade" id="editar_noticia" role="dialog">
+    
+        </div>
+        <div class="modal fade" id="eliminar_noticia" role="dialog">
+    
+        </div>
+    </section>
+{% endblock %}
+{% block javascript %}
+    <script type="application/javascript">
+        function CrearNoticia(url){
+            $('#crear_noticia').load(url, function(){
+                $('#crear_noticia').modal('show');
+            });
+        }
+        function EditarNoticia(url){
+            $('#editar_noticia').load(url, function(){
+                $('#editar_noticia').modal('show');
+            });
+        }
+        function EliminarNoticia(url){
+            $('#eliminar_noticia').load(url, function(){
+                $('#eliminar_noticia').modal('show');
+            });
+        }
+    </script>
+{% endblock javascript %}

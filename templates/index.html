@@ -1,0 +1,313 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block titulo %}Centro Soporte{% endblock titulo %}
+{% block contenido %}
+<main class="main">
+    <div class="completo_main">
+        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="7000">
+                    <img src="{% static "img/slider_1.jpg" %}" class="d-block w-100" alt="...">
+                    <div class="contenido_promocion">
+                        <div class="container flex">
+                            <div class="promocion">
+                                <h5>Bienvenido al sitio web del Centro de Soporte <i class="fas fa-hammer"></i></h5>
+                                <h3>Brindamos soporte a productos con la mejor calidad</h3>
+                                <a class="contacto_a" href="#">Contáctenos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="7000">
+                    <img src="{% static "img/slider_2.jpg" %}" class="d-block w-100" alt="...">
+                    <div class="contenido_promocion">
+                        <div class="container flex">
+                            <div class="promocion">
+                                <h5>Bienvenido al sitio web del Centro de Soporte <i class="fas fa-hammer"></i></h5>
+                                <h3>Conoce nuestros distintos programas de Soporte</h3>
+                                <a class="contacto_a" href="#">Contáctenos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="7000">
+                    <img src="{% static "img/slider_3.jpg" %}" class="d-block w-100" alt="...">
+                    <div class="contenido_promocion">
+                        <div class="container flex">
+                            <div class="promocion">
+                                <h5>Bienvenido al sitio web del Centro de Soporte <i class="fas fa-hammer"></i></h5>
+                                <h3>Tenga en cuenta la utilidad de nuestros Servicios</h3>
+                                <a class="contacto_a" href="#">Contáctenos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<section class="seccion_soporte">
+    <div class="completo_seccion">
+        <div class="titulo_seccion">
+            <h2>Tipos de Soporte que ofrecemos</h2>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                {% if soportes %}
+                    {% for soporte in soportes %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="soporte">
+                                <div class="imagen_soporte">
+                                    {% if soporte.imagen %}
+                                        <img src="/media/{{ soporte.imagen }}" class="d-block w-100" alt="...">
+                                    {% else %}
+                                        <img src="{% static "img/sinfoto.png" %}" class="d-block w-100" alt="...">
+                                    {% endif %}
+                                </div>
+                                <div class="titulo_soporte">
+                                    <a href="{% url "Detalle_Soporte" soporte.id %}"><h3>{{ soporte.titulo }}</h3></a>
+                                </div>
+                                <div class="descripcion_soporte">
+                                    <p>{{ soporte.descripcion }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="seccion_2">
+    <div class="completo_seccion">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="imagen_seccion_2">
+                        <img src="{% static "img/seccion2.png" %}" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="texto_seccion_2">
+                        <div class="titulo_seccion_2">
+                            <h2>¿Por qué escogernos?</h2>
+                        </div>
+                        <div class="descripcion_seccion_2">
+                            <p>
+                                El Centro de Soporte se encarga principalmente de brindar a sus clientes el servicio 
+                                de soporte técnico a las aplicaciones y servicios informáticos desarrollados por la 
+                                Universidad de las Ciencias Informáticas con calidad y eficiencia a partir de una correcta 
+                                gestión de los mismos. Por lo que se incorpora en el proceso de desarrollo de producción 
+                                de la UCI y ante todo prioriza la resoluciones de las inconformidades y reportes realizados 
+                                por los clientes con respecto a sus productos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="seccion_servicios">
+    <div class="completo_seccion">
+        <div class="titulo_seccion">
+            <h2>Catálogo de Servicios</h2>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                {% if servicios %}
+                    {% for servicio in servicios %}
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <div class="servicio">
+                                {% if servicio.imagen %}
+                                    <img src="/media/{{ servicio.imagen }}" class="d-block w-100" alt="...">
+                                {% else %}
+                                    <img src="{% static "img/sinfoto.png" %}" class="d-block w-100" alt="...">
+                                {% endif %}
+                                <div class="texto_servicio">
+                                    <div class="titulo_servicio">
+                                        <a href="{% url "Detalle_Servicio" servicio.id %}"><h3>{{ servicio.titulo }}</h3></a>
+                                    </div>
+                                    <div class="tipo_servicio">
+                                        <p>{{ servicio.tipo }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3>No presenta ningún Servicio en la Base de Datos</h3>
+                {% endif %}
+            </div>
+        </div>
+        <div class="ver_mas">
+            <a href="{% url "Listado_Servicio" %}">Ver más</a>
+        </div>
+    </div>
+</section>
+<section class="seccion_paralax" style="background-image: url('{% static "img/paralax.jpg" %}')">
+    <div class="completo_seccion_paralax">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                    <div class="numero">
+                        <div class="caja_numero">
+                            <h3> <i class="fas fa-archive"></i> 16</h3>
+                        </div>
+                        <div class="texto_numero">
+                            <p>Sistemas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                    <div class="numero">
+                        <div class="caja_numero">
+                            <h3> <i class="fas fa-history"></i> +15</h3>
+                        </div>
+                        <div class="texto_numero">
+                            <p>Años / Experiencia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                    <div class="numero">
+                        <div class="caja_numero">
+                            <h3> <i class="fas fa-user"></i> 56</h3>
+                        </div>
+                        <div class="texto_numero">
+                            <p>Clientes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                    <div class="numero">
+                        <div class="caja_numero">
+                            <h3> <i class="fas fa-tags"></i> 13</h3>
+                        </div>
+                        <div class="texto_numero">
+                            <p>Servicios</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="seccion_productos">
+    <div class="completo_seccion">
+        <div class="titulo_seccion">
+            <h2>Productos que atendemos</h2>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                {% if productos %}
+                    {% for producto in productos %}
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+                            <div class="producto">
+                                <div class="anterior_imagen">
+                                    <div class="imagen_producto">
+                                        {% if producto.imagen %}
+                                            <img src="/media/{{ producto.imagen }}" class="d-block w-100" alt="...">
+                                        {% else %}
+                                            <img src="{% static "img/sinfoto.png" %}" class="d-block w-100" alt="...">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="titulo_producto">
+                                    <a href="{% url "Detalle_Producto" producto.id %}">{{ producto.titulo }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                        <h2>No presenta ningún Producto en la Base de Datos<h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="seccion_noticias">
+    <div class="completo_seccion">
+        <div class="titulo_seccion">
+            <h2>Últimas Noticias</h2>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                {% if noticias %}
+                    {% for noticia in noticias %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="noticia">
+                                <div class="imagen_noticia">
+                                    {% if noticia.imagen %}
+                                        <img src="/media/{{ noticia.imagen }}" class="d-block w-100" alt="...">
+                                    {% else %}
+                                        <img src="{% static "img/sinfoto.png" %}" class="d-block w-100" alt="...">
+                                    {% endif %}
+                                </div>
+                                <div class="texto_noticia">
+                                    <div class="fecha">
+                                        <div class="fecha_medio">
+                                            <p>{{ noticia.fecha }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="titulo_noticia">
+                                        <a href="{% url "Detalle_Noticia" noticia.id %}"><h3>{{ noticia.titulo }}</h3></a>
+                                    </div>
+                                    <div class="resumen_noticia">
+                                        <p>{{ noticia.resumen }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2>No presenta ninguna Noticia en la Base de Datos</h2>
+                {% endif %}
+            </div>
+        </div>
+        <div class="ver_mas">
+            <a href="{% url "Listado_Noticia" %}">Ver más</a>
+        </div>
+    </div>
+</section>
+<section class="seccion_categorias">
+    <div class="completo_seccion">
+        <div class="titulo_seccion">
+            <h2>Nuestras Categorias</h2>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center categorias">
+                {% if categorias %}
+                    {% for categoria in categorias %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="categoria">
+                                <a href="{% url "Detalle_Categoria" categoria.id %}" class="imagen_categoria">
+                                    {% if categoria.imagen %}
+                                        <img src="/media/{{ categoria.imagen }}" class="d-block w-100" alt="...">
+                                    {% else %}
+                                        <img src="{% static "img/sinfoto.png" %}" class="d-block w-100" alt="...">
+                                    {% endif %}
+                                </a>
+                                <div class="titulo_categoria">
+                                    <h3>{{ categoria.titulo }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2>No presenta ninguna Categoria en la Base de Datos</h2>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock contenido %}
